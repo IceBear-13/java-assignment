@@ -18,9 +18,7 @@ public class CmdRequest extends RecordedCommand{
         rEnd = start;
         ArrayList<EquipmentSet> eq = m.getEquipment();
         for(EquipmentSet es : eq){
-            if(!es.getAvailability()){
-                es.setBorrowInfo(new BorrowInformation(rStart, rEnd, es, m));
-            }
+            es.setBorrowInfo(new BorrowInformation(rStart, rEnd, es, m));
         }
         addUndoCommand(this);
         clearRedoList();
