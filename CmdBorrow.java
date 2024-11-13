@@ -5,6 +5,10 @@ public class CmdBorrow extends RecordedCommand {
 
     @Override
     public void execute(String[] cmdParts){
+        if(cmdParts.length != 3){
+            System.out.println("Insufficient command arguments");
+            return;
+        }
         Club c = Club.getInstance();
         Member m = c.findMember(cmdParts[1]);
         

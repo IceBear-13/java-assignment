@@ -4,6 +4,10 @@ public class CmdArrive extends RecordedCommand {
 
     @Override
     public void execute(String[] args){
+        if(args.length != 2){
+            System.out.println("Insufficient command arguments");
+            return;
+        }
         this.eqCode = args[1];
         Club c = Club.getInstance();
         Equipment e = c.findEquipment(args[1]);

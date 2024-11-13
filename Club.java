@@ -91,7 +91,9 @@ public class Club {
             for(EquipmentSet es : e.getEquipmentSets()){
                 System.out.println("\t" + es.getSetCode());
                 if(es.getBorrowInfo() != null){
-                    System.out.println("\t" + "\t" + "Current status: " + es.getBorrowInfo().getMember().getId() + " " + es.getBorrowInfo().getMember().getName() + " borrows " + " for " + es.getBorrowInfo().getBorrowDate().toString() + " to " + es.getBorrowInfo().getReturnDate().toString());
+                    System.out.println("\t" + "\t" + "Current status: " + es.getBorrowInfo().getMember().getId() + " " + es.getBorrowInfo().getMember().getName() + " borrows for " + es.getBorrowInfo().getBorrowDate().toString() + " to " + es.getBorrowInfo().getReturnDate().toString());
+                } else {
+                    System.out.println("\t" + "\t" + "Current status: Available");
                 }
             }
         }
