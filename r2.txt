@@ -1,0 +1,26 @@
+startNewDay 03-Jan-2024
+
+register M10 helena 
+register M12 jason
+register M13 kit
+
+listMembers
+
+undo
+undo
+undo
+listMembers
+
+redo
+listMembers
+
+startNewDay 06-Jan-2024
+register A03 kit
+listMembers
+
+undo
+undo
+register A03 kit
+listMembers
+
+redo
