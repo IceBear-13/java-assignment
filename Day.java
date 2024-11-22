@@ -77,7 +77,7 @@ public class Day implements Cloneable {
     } 
 
 	//Advance this day by n days
-	public void advance(int n){
+	public Day advance(int n){
 		day += n;
 		while (!valid(year, month, day)){
 			if (day<1){
@@ -121,6 +121,23 @@ public class Day implements Cloneable {
 					year++;
 				}
 			}
+		}
+		return this;
+	}
+
+	public static boolean isValidDateString(String sDay) {
+		String[] sDayParts = sDay.split("-");
+		if (sDayParts.length != 3) return false;
+		
+		try {
+			int day = Integer.parseInt(sDayParts[0]);
+			int year = Integer.parseInt(sDayParts[2]);
+			int monthIndex = MonthNames.indexOf(sDayParts[1]);
+			if (monthIndex == -1) return false;
+			int month = monthIndex / 3 + 1;
+			return valid(year, month, day);
+		} catch (NumberFormatException e) {
+			return false;
 		}
 	}
 }

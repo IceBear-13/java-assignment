@@ -11,7 +11,13 @@ public class CmdCreate extends RecordedCommand {
         String eqCode = args[1];
         String eqName = args[2];
         newEquipment = new Equipment(eqName, eqCode);
-        c.addEquipment(newEquipment);
+        try {
+            c.addEquipment(newEquipment);
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return;
+        }
         System.out.println("Done.");
         addUndoCommand(this);
         clearRedoList();
@@ -27,7 +33,13 @@ public class CmdCreate extends RecordedCommand {
     @Override
     public void redoMe(){
         Club c = Club.getInstance();
-        c.addEquipment(newEquipment);
+        try {
+            c.addEquipment(newEquipment);
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return;
+        }
         addUndoCommand(this);
     }
 }

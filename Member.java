@@ -34,9 +34,17 @@ public class Member implements Comparable<Member> {
 
     public void returnEquipment(EquipmentSet returned) {
         borrowed.remove(returned);
+        returned.setAvailability(true);
+        returned.setBorrowInfo(null);
+        try {
+            Equipment e = Club.getInstance().findEquipmentByName(returned.getEqType().getName());
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    public ArrayList<EquipmentSet> getEquipment() {
+    public ArrayList<EquipmentSet> getBorrowed() {
         return borrowed;
     }
 

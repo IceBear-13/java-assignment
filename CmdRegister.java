@@ -10,7 +10,12 @@ public class CmdRegister extends RecordedCommand {
         }
         m = new Member(cmdParts[1], cmdParts[2]);
         Club c = Club.getInstance();
-        c.addMember(m);
+        try {
+            c.addMember(m);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return;
+        }
         addUndoCommand(this);
         clearRedoList();
         System.out.println("Done.");
@@ -26,7 +31,13 @@ public class CmdRegister extends RecordedCommand {
     @Override
     public void redoMe(){
         Club c = Club.getInstance();
-        c.addMember(m);
+        try {
+            c.addMember(m);
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return;
+        }
         addUndoCommand(this);
     }
 }

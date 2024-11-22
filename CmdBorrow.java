@@ -1,7 +1,11 @@
 public class CmdBorrow extends RecordedCommand {
 
     private Member m;
+    private Equipment e;
     private EquipmentSet es;
+    private Day cur;
+    private Day returnDate;
+
 
     @Override
     public void execute(String[] cmdParts){
@@ -10,25 +14,32 @@ public class CmdBorrow extends RecordedCommand {
             return;
         }
         Club c = Club.getInstance();
-        Member m = c.findMember(cmdParts[1]);
-        
-        Equipment e = c.findEquipment(cmdParts[2]);
-        SystemDate cur = SystemDate.getInstance();
-        SystemDate cur2 = SystemDate.getInstance();
-        for(EquipmentSet es : e.getEquipmentSets()){
-            if(es.getAvailability()){
-                this.m = m;
-                this.es = es;
-                es.setAvailability(false);
-                m.borrowEquipment(es);
-                cur.advance(7);
-                BorrowInformation bi = new BorrowInformation(cur2, cur, es, m);
-                es.setBorrowInfo(bi);
-                e.borrowEquipmentSet(es);
+        try {
+            m = c.findMember(cmdParts[1]);
+            e = c.findEquipment(cmdParts[2]);
+
+            cur = SystemDate.getInstance().clone();
+            returnDate = cur.clone().advance(7);
+    
+            for(EquipmentSet eSet : e.getEquipmentSets()){
+                this.es = eSet;
+                if(es.getAvailability()){
+                    es.setAvailability(false);
+                    m.borrowEquipment(es);
+                    BorrowInformation bi = new BorrowInformation(cur, returnDate, es, m);
+                    es.setBorrowInfo(bi);
+                    e.borrowEquipmentSet(es);
+                    System.out.println(m.getId() + " " + m.getName() + " borrows " + es.getSetCode() + " " + e.getName() + " from " + cur.toString() + " to " + returnDate.toString());
+                    break;
+                }
             }
+            addUndoCommand(this);
+            clearRedoList();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-        addUndoCommand(this);
-        clearRedoList();
+
+
     }
 
     @Override

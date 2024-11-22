@@ -22,7 +22,7 @@ public class Equipment {
     }
 
     public void addEquipmentSet() {
-        this.equipmentSets.add(new EquipmentSet(eqCode+"_"+(equipmentSets.size()+1)));
+        this.equipmentSets.add(new EquipmentSet(eqCode+"_"+(equipmentSets.size()+1), this));
     }
 
     public void removeEquipmentSet() {
@@ -39,6 +39,10 @@ public class Equipment {
 
     public void borrowEquipmentSet(EquipmentSet es) {
         this.borrowedEquipmentSets.add(es);
+    }
+
+    public void returnEquipmentSet(EquipmentSet es) {
+        this.borrowedEquipmentSets.remove(es);
     }
 
     public ArrayList<EquipmentSet> getBorrowedEquipmentSets() {

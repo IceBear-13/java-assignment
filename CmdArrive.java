@@ -1,6 +1,6 @@
 public class CmdArrive extends RecordedCommand {
 
-    private String eqCode;
+    private Equipment e;
 
     @Override
     public void execute(String[] args){
@@ -8,10 +8,16 @@ public class CmdArrive extends RecordedCommand {
             System.out.println("Insufficient command arguments");
             return;
         }
-        this.eqCode = args[1];
+        String eqCode = args[1];
         Club c = Club.getInstance();
-        Equipment e = c.findEquipment(args[1]);
-        e.addEquipmentSet();
+        try {
+            e = c.findEquipment(args[1]);
+            e.addEquipmentSet();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return;
+        }
         addUndoCommand(this);
         clearRedoList();
         System.out.println("Done.");
@@ -20,16 +26,26 @@ public class CmdArrive extends RecordedCommand {
     @Override
     public void undoMe(){
         Club c = Club.getInstance();
-        Equipment e = c.findEquipment(eqCode);
-        e.removeEquipmentSet();
+        try {
+            e.removeEquipmentSet();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+
         addRedoCommand(this);
     }
 
     @Override
     public void redoMe(){
         Club c = Club.getInstance();
-        Equipment e = c.findEquipment(eqCode);
-        e.addEquipmentSet();
+        try {
+            e.addEquipmentSet();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+
         addUndoCommand(this);
     }
 }

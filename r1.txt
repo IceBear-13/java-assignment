@@ -15,25 +15,4 @@ list_abc_wrong_command
 
 register 005 peter
 register 006 paul
-
-listEquipment
-
-create E2 Robot_Astro        
-create E3 Robot_Astro        
-create E4 Laser_Keyboard
-
-listEquipment
-
-arrive E2
-arrive E4
-arrive E4
-
-listEquipment
-
-borrow 001 E2
-
 listMembers
-
-listEquipment
-
-listEquipmentStatus
