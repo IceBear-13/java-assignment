@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class CmdStartNewDay extends RecordedCommand {
     
@@ -22,10 +23,12 @@ public class CmdStartNewDay extends RecordedCommand {
         cur.set(cmdParts[1]);
         for(Member m : members){
             ArrayList<EquipmentSet> eq = m.getBorrowed();
-            for(EquipmentSet e : eq){
-                // System.out.println(e.getEqType().getName() + " " + e.getSetCode()); // debugging purposes 
+            Iterator<EquipmentSet> iterator = eq.iterator();
+            while (iterator.hasNext()) {
+                EquipmentSet e = iterator.next();
                 if(e.getBorrowInfo() != null){
                     if(e.getBorrowInfo().getReturnDate().compareTo(SystemDate.getInstance()) < 0){
+                        iterator.remove(); // Remove the element using the iterator
                         m.returnEquipment(e);
                     }
                 }
