@@ -15,7 +15,7 @@ public class CmdArrive extends RecordedCommand {
             e.addEquipmentSet();
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println(e.getMessage() + ". Cannot mark this item arrival.");
             return;
         }
         addUndoCommand(this);

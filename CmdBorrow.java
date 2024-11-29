@@ -39,7 +39,7 @@ public class CmdBorrow extends RecordedCommand {
                     BorrowInformation bi = new BorrowInformation(cur, returnDate, es, m);
                     es.setBorrowInfo(bi);
                     e.borrowEquipmentSet(es);
-                    System.out.println(m.getId() + " " + m.getName() + " borrows " + es.getSetCode() + " (" + e.getName() + ") from " + cur.toString() + " to " + returnDate.toString());
+                    System.out.println(m.getId() + " " + m.getName() + " borrows " + es.getSetCode() + " (" + e.getName() + ") for " + cur.toString() + " to " + returnDate.toString());
                     System.out.println("Done.");
                     break;
                 }

@@ -60,7 +60,7 @@ public class Club {
                 return e;
             }
         }
-        throw new EquipmentNotFound();
+        throw new EquipmentNotFound(eqCode);
     }
 
     public ArrayList<Member> getAllMembers() {
@@ -125,7 +125,7 @@ public class Club {
                 return e;
             }
         }
-        throw new EquipmentNotFound();
+        throw new EquipmentNotFound("Equipment with name " + name + " not found.");
     }
 
 }

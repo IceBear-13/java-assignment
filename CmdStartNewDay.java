@@ -15,11 +15,14 @@ public class CmdStartNewDay extends RecordedCommand {
             return;
         }
         newDate = cmdParts[1];
+        oldDate = cur.toString();
         if(!Day.isValidDateString(newDate)){
             System.out.println("Invalid date.");
             return;
+        }  else if(SystemDate.getInstance().compareTo(new Day(newDate)) > 0){
+            System.out.println("Invalid new day. The new day has to be later than the current date " + cur.toString() + ".");
+            return;
         }
-        oldDate = cur.toString();
         cur.set(cmdParts[1]);
         for(Member m : members){
             ArrayList<EquipmentSet> eq = m.getBorrowed();
