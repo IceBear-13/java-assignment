@@ -5,7 +5,7 @@ public class CmdRegister extends RecordedCommand {
     @Override
     public void execute(String[] cmdParts){
         if(cmdParts.length != 3){
-            System.out.println("Insufficient command arguments.");
+            System.out.println("Insufficient command arguments..");
             return;
         }
         m = new Member(cmdParts[1], cmdParts[2]);

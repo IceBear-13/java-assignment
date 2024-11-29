@@ -1,5 +1,5 @@
 public class MemberIDAlreadyInUse extends Exception{
-    public MemberIDAlreadyInUse(){
-        super("Member ID is already in use.");
+    public MemberIDAlreadyInUse(Member m){
+        super("Member ID already in use: " + m.toString());
     }    
 }

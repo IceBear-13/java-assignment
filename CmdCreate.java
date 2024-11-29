@@ -4,7 +4,7 @@ public class CmdCreate extends RecordedCommand {
     @Override
     public void execute(String[] args){
         if(args.length != 3){
-            System.out.println("Insufficient command arguments");
+            System.out.println("Insufficient command arguments.");
             return;
         }
         Club c = Club.getInstance();

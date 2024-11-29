@@ -5,7 +5,7 @@ public class CmdArrive extends RecordedCommand {
     @Override
     public void execute(String[] args){
         if(args.length != 2){
-            System.out.println("Insufficient command arguments");
+            System.out.println("Insufficient command arguments.");
             return;
         }
         String eqCode = args[1];

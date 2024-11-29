@@ -16,7 +16,7 @@ public class Club {
     public void addMember(Member m) throws MemberIDAlreadyInUse {
         for (Member mem : allMembers) {
             if (mem.getId().equals(m.getId())) {
-                throw new MemberIDAlreadyInUse();
+                throw new MemberIDAlreadyInUse(mem);
             }
         }
         allMembers.add(m);

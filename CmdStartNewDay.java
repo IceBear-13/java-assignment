@@ -11,7 +11,7 @@ public class CmdStartNewDay extends RecordedCommand {
         Club c = Club.getInstance();
         ArrayList<Member> members = c.getAllMembers();
         if(cmdParts.length != 2){
-            System.out.println("Insufficient command arguments");
+            System.out.println("Insufficient command arguments.");
             return;
         }
         newDate = cmdParts[1];

@@ -7,7 +7,7 @@ public class CmdRequest extends RecordedCommand{
     @Override
     public void execute(String[] cmdParts){
         if(cmdParts.length < 5){
-            System.out.println("Insufficient command arguments");
+            System.out.println("Insufficient command arguments.");
             return;
         }
         Club c = Club.getInstance();
