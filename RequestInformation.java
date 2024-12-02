@@ -30,4 +30,11 @@ public class RequestInformation {
         return this.mem.getName() + " " + this.eqSet.toString() + " " + this.start.toString() + " " + this.end.toString();
     }
     
+    public boolean checkRequested(RequestInformation other){
+        if (this.eqSet == other.eqSet && (this.end.compareTo(other.start) <= 0 || this.start.compareTo(other.end) >= 0)) {
+            return true; 
+        }
+        return false; 
+        
+    }
 }

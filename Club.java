@@ -89,13 +89,14 @@ public class Club {
             }
             if (hasBorrowedSets) {
                 System.out.printf(" (Borrowed set(s): ");
-                for (int i = 0; i < e.getBorrowedEquipmentSets().size(); i++) {
-                    EquipmentSet es = e.getBorrowedEquipmentSets().get(i);
+                boolean first = true;
+                for (EquipmentSet es : e.getBorrowedEquipmentSets()) {
                     if (es.getBorrowInfo() != null) {
-                        System.out.printf(es.getSetCode() + "(" + es.getBorrowInfo().getMember().getId() + ")");
-                        if (i < e.getBorrowedEquipmentSets().size() - 1) {
+                        if (!first) {
                             System.out.printf(", ");
                         }
+                        System.out.printf(es.getSetCode() + "(" + es.getBorrowInfo().getMember().getId() + ")");
+                        first = false;
                     }
                 }
                 System.out.println(")");
@@ -108,6 +109,9 @@ public class Club {
     public void listEquipmentStatus(){
         for(Equipment e : this.equipments){
             System.out.println("[" + e.getEqCode() + " " + e.getName() + "]");
+            if(e.getEquipmentSets().isEmpty() && e.getBorrowedEquipmentSets().isEmpty()){
+                System.out.println("We do not have any sets for this equipment.");
+            }
             for(EquipmentSet es : e.getEquipmentSets()){
                 System.out.println("\t" + es.getSetCode());
                 if(es.getBorrowInfo() != null){
@@ -115,6 +119,18 @@ public class Club {
                 } else {
                     System.out.println("\t" + "\t" + "Current status: Available");
                 }
+                if(!es.getRequests().isEmpty()){
+                    System.out.print("\t" + "\t" + "Request period(s): ");
+                    boolean first = true;
+                    for(RequestInformation ri : es.getRequests()){
+                        if (!first) {
+                            System.out.print(", ");
+                        }
+                        System.out.print(ri.getStart().toString() + " to " + ri.getEnd().toString());
+                        first = false;
+                    }
+                }
+                System.out.println();
             }
         }
     }

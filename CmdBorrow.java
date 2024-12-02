@@ -5,11 +5,12 @@ public class CmdBorrow extends RecordedCommand {
     private EquipmentSet es;
     private Day cur;
     private Day returnDate;
+    private int days;
 
 
     @Override
     public void execute(String[] cmdParts){
-        if(cmdParts.length != 3){
+        if(cmdParts.length < 3){
             System.out.println("Insufficient command arguments.");
             return;
         }
@@ -18,11 +19,17 @@ public class CmdBorrow extends RecordedCommand {
             m = c.findMember(cmdParts[1]);
             e = c.findEquipment(cmdParts[2]);
 
+            if(cmdParts.length == 4){
+                days = Integer.parseInt(cmdParts[3]);
+            } else {
+                days = 7;
+            }
+            
             cur = SystemDate.getInstance().clone();
-            returnDate = cur.clone().advance(7);
-
+            returnDate = cur.clone().advance(days);
+    
             boolean isBorrowed = false;
-
+    
             for(EquipmentSet eq : m.getBorrowed()){
                 if(eq.getEqType().equals(e)){
                     System.out.println("The member is currently borrowing a set of this equipment. He/she cannot borrow one more at the same time.");
@@ -44,19 +51,19 @@ public class CmdBorrow extends RecordedCommand {
                     break;
                 }
             }
-
+    
             if(!isBorrowed){
                 System.out.println("There is no available set of this equipment for the command.");
                 return;
             }
-
+    
             addUndoCommand(this);
             clearRedoList();
-        } catch (Exception e) {
+        } catch (EquipmentNotFound e) {
+            System.out.println("Equipment record not found.");
+        } catch (MemberNotFound e) {
             System.out.println(e.getMessage());
         }
-
-
     }
 
     @Override
@@ -71,7 +78,7 @@ public class CmdBorrow extends RecordedCommand {
     public void redoMe(){
         Club c = Club.getInstance();
         m.borrowEquipment(es);
-        es.setAvailability(false);
+        // es.setAvailability(false);
         addUndoCommand(this);
     }
 

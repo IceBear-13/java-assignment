@@ -60,15 +60,19 @@ public class Main {
 				case "listEquipmentStatus":
 					(new CmdListEquipmentStatus()).execute(cmdParts);
 					break;
+				case "request":
+					(new CmdRequest()).execute(cmdParts);
+					break;
 				case "undo":
 					RecordedCommand.undoOneCommand();
 					break;
 				case "redo":
 					RecordedCommand.redoOneCommand();
 					break;
+
 				default:
 					System.out.println("Unknown command - ignored.");
-					break;
+					return;
 			}
 			
 		}

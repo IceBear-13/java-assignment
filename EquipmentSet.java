@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class EquipmentSet {
+public class EquipmentSet implements Comparable<EquipmentSet> {
     private String setCode;
     private boolean isAvailable;
     private Equipment eqType;
@@ -11,6 +11,7 @@ public class EquipmentSet {
         this.setCode = setCode;
         this.isAvailable = true;
         this.eqType = eqType;
+        requests = new ArrayList<RequestInformation>();
     }
 
     public void setBorrowInfo(BorrowInformation borrowInfo){
@@ -43,7 +44,20 @@ public class EquipmentSet {
 
     @Override
     public String toString(){
-        return this.setCode + " " + "(" + this.eqType + ")";
+        return this.setCode + " " + "(" + this.eqType.getName() + ")";
+    }
+
+    @Override
+    public int compareTo(EquipmentSet another) {
+        return this.setCode.compareTo(another.setCode);
+    }
+
+    public void addRequest(RequestInformation request){
+        requests.add(request);
+    }
+
+    public ArrayList<RequestInformation> getRequests(){
+        return requests;
     }
 
 }

@@ -76,53 +76,41 @@ public class Day implements Cloneable {
         return day+"-"+ MonthNames.substring((month-1)*3,month*3) + "-"+ year; // (month-1)*3,(month)*3
     } 
 
-	//Advance this day by n days
-	public Day advance(int n){
+	public Day advance(int n) {
 		day += n;
-		while (!valid(year, month, day)){
-			if (day<1){
+		while (!valid(year, month, day)) {
+			if (day < 1) {
 				month--;
-				if (month==0){
-					month=12;
+				if (month == 0) {
+					month = 12;
 					year--;
 				}
-				day += 31;
-				if (month==2){
-					if (isLeapYear(year))
-						day--;
-					day -= 3;
-				}
-				if (month==4 || month==6 || month==9 || month==11)
-					day--;
-			}
-			else {
-				if (month==2){
-					if (isLeapYear(year)){
-						if (day>29){
-							day -= 29;
-							month++;
-						}
+				day += daysInMonth(year, month);
+			} else {
+				if (day > daysInMonth(year, month)) {
+					day -= daysInMonth(year, month);
+					month++;
+					if (month == 13) {
+						month = 1;
+						year++;
 					}
-					else {
-						if (day>28){
-							day -= 28;
-							month++;
-						}
-					}
-				}
-				else {
-					if (day>30){
-						day -= 30;
-						month++;
-					}
-				}
-				if (month==13){
-					month = 1;
-					year++;
 				}
 			}
 		}
 		return this;
+	}
+
+	private int daysInMonth(int year, int month) {
+		switch (month) {
+			case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+				return 31;
+			case 4: case 6: case 9: case 11:
+				return 30;
+			case 2:
+				return isLeapYear(year) ? 29 : 28;
+			default:
+				throw new IllegalArgumentException("Invalid month: " + month);
+		}
 	}
 
 	public static boolean isValidDateString(String sDay) {

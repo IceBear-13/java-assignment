@@ -30,6 +30,9 @@ public class Member implements Comparable<Member> {
 
     public void borrowEquipment(EquipmentSet borrowed) {
         this.borrowed.add(borrowed);
+        borrowed.setAvailability(false);
+        BorrowInformation bi = new BorrowInformation(SystemDate.getInstance().clone(), SystemDate.getInstance().clone().advance(7), borrowed, this);
+        borrowed.setBorrowInfo(bi);
     }
 
     public void returnEquipment(EquipmentSet returned) {
@@ -58,5 +61,14 @@ public class Member implements Comparable<Member> {
 
     public String getName(){
         return name;
+    }
+
+    public ArrayList<EquipmentSet> getRequested(){
+        return requested;
+    }
+
+    public void requestEquipment(EquipmentSet requested, Day start, Day end) {
+        this.requested.add(requested);
+        requested.addRequest(new RequestInformation(this, requested, start, end));
     }
 }
